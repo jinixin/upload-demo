@@ -51,6 +51,7 @@
         });
 
         uploader.on('uploadSuccess', function(file) {
+            $.get('{{ url_for("upload_success") }}');
             $('.progress-bar').css('width', '100%');
             $('.progress-bar').text('100%');
             $('.progress-bar').addClass('progress-bar-success');
