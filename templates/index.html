@@ -22,11 +22,11 @@
     $(document).ready(function() {
         var uploader = WebUploader.create({
             swf: './static/webuploader/Uploader.swf',
-            server: '',
+            server: '{{ url_for("index") }}',
             pick: '#picker',
             auto: true,
             chunked: true,
-            chunkSize: 2 * 1024 * 1024,
+            chunkSize: 30 * 1024 * 1024,
             chunkRetry: 5,
             threads: 1,
             duplicate: true,

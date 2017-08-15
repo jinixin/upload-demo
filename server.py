@@ -10,7 +10,10 @@ app = Flask(__name__)
 def index():
     if request.method == 'POST':
         upload_file = request.files['file']
-        filename = secure_filename(upload_file.filename)
+        # print request.form
+        task = request.form.get('task_id')
+        chunk = request.form.get('chunk', 0)
+        filename = secure_filename('%s%s' % (task, chunk))
         upload_file.save('upload/%s' % filename)
     return rt('./index.html')
 
