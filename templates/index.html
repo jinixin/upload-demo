@@ -20,6 +20,7 @@
     </div>
     <script type="text/javascript">
     $(document).ready(function() {
+        var task_id = WebUploader.Base.guid();
         var uploader = WebUploader.create({
             swf: './static/webuploader/Uploader.swf',
             server: '{{ url_for("index") }}',
@@ -31,7 +32,7 @@
             threads: 1,
             duplicate: true,
             formData: {
-                task_id: WebUploader.Base.guid(),
+                task_id: task_id,
             },
         });
 
@@ -51,7 +52,8 @@
         });
 
         uploader.on('uploadSuccess', function(file) {
-            $.get('{{ url_for("upload_success") }}');
+            var data = {'task_id': task_id};
+            $.get('{{ url_for("upload_success") }}', data);
             $('.progress-bar').css('width', '100%');
             $('.progress-bar').text('100%');
             $('.progress-bar').addClass('progress-bar-success');
