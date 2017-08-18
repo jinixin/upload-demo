@@ -21,8 +21,13 @@ def index():
 @app.route('/success', methods=['GET'])
 def upload_success():
     task = request.args.get('task_id')
+    ext = request.args.get('ext', '')
+    upload_type = request.args.get('type')
+    if len(ext) == 0 and upload_type:
+        ext = upload_type.split('/')[1]
+    ext = '' if len(ext) == 0 else '.%s' % ext
     chunk = 0
-    with open('./upload/%s' % task, 'w') as target:
+    with open('./upload/%s%s' % (task, ext), 'w') as target:
         while True:
             try:
                 filename = './upload/%s%d' % (task, chunk)
