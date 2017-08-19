@@ -12,7 +12,7 @@
 
 <body>
     <div style="margin:50px 0 0 50px;">
-        <div id="picker" style="float:left;">选择文件</div>
+        <div id="picker" style="float:left;">请选择</div>
         <div id="progress" class="progress" style="width:500px;float:left;margin:10px 0 0 20px;">
             <div class="progress-bar progress-bar-striped active" role="progressbar" style="width:0%;"></div>
         </div>
@@ -27,8 +27,8 @@
             pick: '#picker',
             auto: true,
             chunked: true,
-            chunkSize: 30 * 1024 * 1024,
-            chunkRetry: 5,
+            chunkSize: 20 * 1024 * 1024,
+            chunkRetry: 3,
             threads: 1,
             duplicate: true,
             formData: {
@@ -43,8 +43,6 @@
             $('.progress-bar').removeClass('progress-bar-danger progress-bar-success');
             $('.progress-bar').addClass('active progress-bar-striped');
         });
-
-        uploader.on('uploadAccept', function(object, ret) {});
 
         uploader.on('uploadProgress', function(file, percentage) {
             $('.progress-bar').css('width', percentage * 100 - 1 + '%');

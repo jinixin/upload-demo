@@ -2,7 +2,6 @@
 
 import os
 from flask import Flask, request, render_template as rt
-from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -14,7 +13,7 @@ def index():
         task = request.form.get('task_id')
         chunk = request.form.get('chunk', 0)
         filename = '%s%s' % (task, chunk)
-        upload_file.save('upload/%s' % filename)
+        upload_file.save('./upload/%s' % filename)
     return rt('./index.html')
 
 
@@ -27,13 +26,13 @@ def upload_success():
         ext = upload_type.split('/')[1]
     ext = '' if len(ext) == 0 else '.%s' % ext
     chunk = 0
-    with open('./upload/%s%s' % (task, ext), 'w') as target:
+    with open('./upload/%s%s' % (task, ext), 'w') as target_file:
         while True:
             try:
                 filename = './upload/%s%d' % (task, chunk)
-                source = open(filename)
-                target.write(source.read())
-                source.close()
+                source_file = open(filename, 'r')
+                target_file.write(source_file.read())
+                source_file.close()
             except IOError:
                 break
             chunk += 1
