@@ -4,7 +4,7 @@
 import os
 import logging
 
-from flask import Flask, request, render_template as rt
+from flask import Flask, request, Response, render_template as rt
 
 app = Flask(__name__)
 
@@ -54,8 +54,23 @@ def upload_success():  # 按序读出分片内容，并写入新文件
 
 @app.route('/file/list', methods=['GET'])
 def file_list():
-    pass
+    files = os.listdir('./upload/')  # 获取文件目录
+    return rt('./list.html', files=files)
+
+
+@app.route('/file/download/<filename>', methods=['GET'])
+def file_download(filename):
+    def send_chunk():  # 流式读取
+        store_path = './upload/%s' % filename
+        with open(store_path, 'rb') as target_file:
+            while True:
+                chunk = target_file.read(20 * 1024 * 1024)
+                if not chunk:
+                    break
+                yield chunk
+
+    return Response(send_chunk(), content_type='application/octet-stream')
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(threaded=True)

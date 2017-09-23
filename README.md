@@ -39,6 +39,8 @@ Uploading a large file by fragmentation, powered by Flask and WebUploader.
 
 * WebUploader分片与上传，Bootstrap渲染上传进度条  
 
+* 大致思路：[blog.csdn.net/jinixin/article/details/77545140](http://blog.csdn.net/jinixin/article/details/77545140)  
+
 
 ## 备注
 
