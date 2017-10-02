@@ -73,4 +73,4 @@ def file_download(filename):
 
 
 if __name__ == '__main__':
-    app.run(threaded=True)
+    app.run(debug=False, threaded=True)
