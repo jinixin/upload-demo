@@ -2,7 +2,6 @@
 # coding=utf-8
 
 import os
-import logging
 
 from flask import Flask, request, Response, render_template as rt
 
@@ -35,15 +34,14 @@ def upload_success():  # 按序读出分片内容，并写入新文件
 
     task = request.args.get('task_id')  # 获取文件的唯一标识符
     chunk = 0  # 分片序号
-    with open('./upload/%s%s' % (task, ext), 'w') as target_file:  # 创建新文件
+    with open('./upload/%s%s' % (task, ext), 'wb') as target_file:  # 创建新文件
         while True:
             try:
                 filename = './upload/%s%d' % (task, chunk)
-                source_file = open(filename, 'r')  # 按序打开每个分片
+                source_file = open(filename, 'rb')  # 按序打开每个分片
                 target_file.write(source_file.read())  # 读取分片内容写入新文件
                 source_file.close()
             except IOError, msg:
-                logging.error('Reading the %dth chunk file failed, error: %s' % (chunk, msg))
                 break
 
             chunk += 1

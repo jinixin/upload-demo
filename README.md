@@ -1,4 +1,4 @@
-# upload-demo (include download)
+# upload-demo *(include download)*
 
 Uploading a large file by fragmentation, powered by Flask and WebUploader. Downloading the file through streaming.  
 
@@ -56,3 +56,9 @@ Uploading a large file by fragmentation, powered by Flask and WebUploader. Downl
 
 * demo中使用了三种开源框架，后续修改应注意遵守BSD与MIT协议，感谢  
 
+
+## 致谢
+
+* 提供开源框架的母公司  
+
+* [hulkbai](https://github.com/hulkbai)  
