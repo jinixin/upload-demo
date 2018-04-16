@@ -50,7 +50,7 @@
         });
 
         uploader.on('uploadSuccess', function(file) { // 整个文件的所有分片都上传成功后，调用该方法
-            var data = { 'task_id': task_id, 'ext': file.source['ext'], 'type': file.source['type'] };
+            var data = { 'task_id': task_id, 'filename': file.source['name'] };
             $.get('{{ url_for("upload_success") }}', data);
             $('.progress-bar').css('width', '100%');
             $('.progress-bar').text('100%');

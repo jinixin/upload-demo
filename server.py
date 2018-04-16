@@ -26,15 +26,10 @@ def upload_part():  # 接收前端上传的一个分片
 
 @app.route('/file/merge', methods=['GET'])
 def upload_success():  # 按序读出分片内容，并写入新文件
-    ext = request.args.get('ext', '')
-    upload_type = request.args.get('type')
-    if len(ext) == 0 and upload_type:
-        ext = upload_type.split('/')[1]
-    ext = '' if len(ext) == 0 else '.%s' % ext  # 构造文件后缀名
-
+    target_filename = request.args.get('filename')  # 获取上传文件的文件名
     task = request.args.get('task_id')  # 获取文件的唯一标识符
     chunk = 0  # 分片序号
-    with open('./upload/%s%s' % (task, ext), 'wb') as target_file:  # 创建新文件
+    with open('./upload/%s' % target_filename, 'wb') as target_file:  # 创建新文件
         while True:
             try:
                 filename = './upload/%s%d' % (task, chunk)
@@ -53,6 +48,7 @@ def upload_success():  # 按序读出分片内容，并写入新文件
 @app.route('/file/list', methods=['GET'])
 def file_list():
     files = os.listdir('./upload/')  # 获取文件目录
+    files = map(lambda x: x if isinstance(x, unicode) else x.decode('utf-8'), files)  # 注意编码
     return rt('./list.html', files=files)
 
 
