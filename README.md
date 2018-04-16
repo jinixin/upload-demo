@@ -61,4 +61,6 @@ Uploading a large file by fragmentation, powered by Flask and WebUploader. Downl
 
 * 提供开源框架的母公司  
 
-* [hulkbai](https://github.com/hulkbai)  
+* [hulkbai](https://github.com/hulkbai)  解决因编码造成的合并分片失败
+
+* [CharlieLio](https://github.com/CharlieLio)  报告文件名乱码问题
